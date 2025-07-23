@@ -7,15 +7,23 @@ This project extracts data from the [Fantasy Premier League Draft API](https://d
 
 It processes and saves the extracted data into structured `.csv` files stored in a local `Data/` folder.
 
+For the 2024/2025 season endpoints and data format may have changed since
+
 ---
 
 ## 📁 Project Structure
+FPL-24_25/
 
 ├── main.py # Main script to run the data extraction
+
 ├── league.py # Extracts league standings data
+
 ├── players.py # Extracts player stats from the API
+
 ├── utils.py # Common utilities: fetch API data, save CSV, etc.
+
 ├── Data/ # Folder where CSV files will be saved
+
 └── README.md # This file
 
 
@@ -48,20 +56,20 @@ pip install pandas requests
 ```
 This will:
 
-Create a Data/ folder (if it doesn’t exist)
+- Create a Data/ folder (if it doesn’t exist)
 
-Fetch and save league_standings.csv
+- Fetch and save league_standings.csv
 
-Fetch and save players_data.csv
+- Fetch and save players_data.csv
 
-📦 Output Files
+## 📦 Output Files
 Inside the Data/ folder:
 
-league_standings.csv: Manager IDs, names, waiver pick, and team name
+- league_standings.csv: Manager IDs, names, waiver pick, and team name
 
-players_data.csv: Detailed stats for all available players
+- players_data.csv: Detailed stats for all available players
 
-📚 API Endpoints Used
+## 📚 API Endpoints Used
 https://draft.premierleague.com/api/league/{league_id}/details
 
 https://draft.premierleague.com/api/bootstrap-static
@@ -70,7 +78,7 @@ https://draft.premierleague.com/api/event/{gameweek}/live
 
 https://draft.premierleague.com/api/game
 
-🛠 Modules Overview
+## 🛠 Modules Overview
 main.py
 Orchestrates the full data extraction pipeline:
 
@@ -85,18 +93,18 @@ players.py
 Fetches static player data and saves it to players_data.csv.
 
 utils.py
-Shared utilities:
+## Shared utilities:
 
-fetch_data(): Handles GET requests
+- fetch_data(): Handles GET requests
 
-save_csv(): Saves lists of data to .csv files
+- save_csv(): Saves lists of data to .csv files
 
-Additional helper functions (e.g. SQLite support)
+- Additional helper functions (e.g. SQLite support)
 
 📌 Notes
-Default league ID is 70113. You can change this in main.py and league.py.
+- Default league ID is 70113. You can change this in main.py and league.py.
 
-All output data is saved locally inside the Data/ folder.
+- All output data is saved locally inside the Data/ folder.
 
-Gameweek data handling (from event/{gameweek}/live) is available via get_player_gw_data(gameweek) in utils.py.
+- Gameweek data handling (from event/{gameweek}/live) is available via get_player_gw_data(gameweek) in utils.py.
 
