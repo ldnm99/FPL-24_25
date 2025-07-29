@@ -34,13 +34,9 @@ def save_csv(filename, headers, rows):
         csv_writer.writerows(rows)
 
 def fetch_managers_ids():
-    """Fetch the list of manager IDs from the league_standings table."""
-    conn = sqlite3.connect(DB_FILE)
-    cursor = conn.cursor()
-    cursor.execute("SELECT manager_id FROM league_standings")
-    managers_ids = [row[0] for row in cursor.fetchall()]
-    conn.close()
-    return managers_ids
+    """Fetch the list of manager IDs from the league_standings.csv file."""
+    df = pd.read_csv('data/league_standings.csv')
+    return df['manager_id'].dropna().unique().tolist()
     
 def fetch_players_data():
     """Fetch player data from the players_data table."""

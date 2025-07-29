@@ -1,6 +1,6 @@
 import os
 # Importing functions from other modules
-import league, players
+import league, players, final
 ###########################################################Endpoints###########################################################
 # Define URLs
 BASE_URL            = "https://draft.premierleague.com/api"
@@ -54,6 +54,11 @@ def main():
     print('----------------------------------------------------------------------')
     print("Data extraction from endpoints script completed successfully.")
     print("Data saved as .csv in the 'Data' folder.")
+    print('----------------------------------------------------------------------')
+    final.main()
+    print("Final data processing completed successfully.")
+    print("Final data saved as final_data.csv in the current directory.")
+
 
 # Main function
 if __name__ == "__main__":
