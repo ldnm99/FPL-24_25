@@ -1,43 +1,45 @@
 # ⚽ Fantasy Premier League Draft Data Extractor
 
-This project extracts data from the [Fantasy Premier League Draft API](https://draft.premierleague.com/api), including:
-- League standings
-- Player statistics
-- Gameweek data
+This project extracts, processes, and visualizes Fantasy Premier League Draft data for the 2025/26 season.
+
+It pulls data from the FPL Draft API and produces structured .csv files in a local Data/ folder.- Player statistics
+
+The Streamlit dashboard provides interactive visualizations for players, managers, and gameweek performance.
 
 It processes and saves the extracted data into structured `.csv` files stored in a local `Data/` folder.
-
-For the 2024/2025 season endpoints and data format may have changed since
-
 ---
 
 ## 📁 Project Structure
-FPL-24_25/
+FPL-25_26/
 
-├── main.py # Main script to run the data extraction
-
-├── league.py # Extracts league standings data
-
-├── players.py # Extracts player stats from the API
-
-├── utils.py # Common utilities: fetch API data, save CSV, etc.
-
-├── Data/ # Folder where CSV files will be saved
-
-└── README.md # This file
+├── app.py               # Main Streamlit dashboard
+├── extract.py           # Fetches data from the API
+├── processing.py        # Processes CSVs and merges player/team data
+├── league_classification.py # Creates league tables and HTML outputs
+├── utils.py             # Helper functions: fetch API data, save CSV, etc.
+├── Data/                # CSV files stored here (league standings, player stats)
+├── requirements.txt     # Python dependencies for deployment
+└── README.md            # This file
 
 
 ---
 
 ## 🚀 Features
 
-- Fetches and saves:
+- Data Extraction:
   - League standings with manager info
-  - Player stats and metadata
+  - Player statistics and metadata
   - Gameweek-specific player performance
-- Organizes results into CSV files in `Data/`
-- Modular code: logic is split between `league.py`, `players.py`, and `utils.py`
-
+- Data Visualizations:
+  - Table of all players with filters
+  - Pivot table: Teams as rows, Gameweeks as columns, with a Total column
+  - Line chart: points per gameweek per team
+  - Cumulative line chart: total points over gameweeks
+  - Heatmap and scatter plot of team points
+  - Interactive filters: Gameweek range, Manager, Owned players
+- Data Storage
+    - Data Storage
+    - Outputs CSV files in Data/
 ---
 
 ## 🔧 Setup
@@ -45,29 +47,34 @@ FPL-24_25/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/fpl-draft-data-extractor.git
-cd fpl-draft-data-extractor
+git clone https://github.com/yourusername/fpl-draft-dashboard.git
+cd fpl-draft-dashboard
 ```
 
 2. Install dependencies
 This project uses standard libraries, but make sure you have the following installed:
 ```
-pip install pandas requests
+pip install -r requirements.txt
 ```
-This will:
-
-- Create a Data/ folder (if it doesn’t exist)
-
-- Fetch and save league_standings.csv
-
-- Fetch and save players_data.csv
+This includes:
+```
+streamlit
+pandas
+plotly
+requests
+```
+3. Run the Dashboard
+```
+streamlit run app.py
+```
+Open the URL in your browser to explore the dashboard.
 
 ## 📦 Output Files
 Inside the Data/ folder:
 
-- league_standings.csv: Manager IDs, names, waiver pick, and team name
-
-- players_data.csv: Detailed stats for all available players
+- league_Standings.csv: Manager IDs, names, waiver pick, and team name
+- gw_data.csv: Player statistics for each gameweek
+- players_data.csv: Static player metadata (optional)
 
 ## 📚 API Endpoints Used
 https://draft.premierleague.com/api/league/{league_id}/details
@@ -79,18 +86,21 @@ https://draft.premierleague.com/api/event/{gameweek}/live
 https://draft.premierleague.com/api/game
 
 ## 🛠 Modules Overview
-main.py
-Orchestrates the full data extraction pipeline:
+app.py
 
-Creates the Data/ directory if needed
+Streamlit dashboard with 2x2 visualizations and interactive filters
 
-Fetches league standings and player data
+extract.py
 
-league.py
-Fetches the league standings and saves them to league_standings.csv.
+Fetches data from the FPL Draft API and saves CSVs in Data/
 
-players.py
-Fetches static player data and saves it to players_data.csv.
+processing.py
+
+Cleans, merges, and prepares player and team data for analysis
+
+league_classification.py
+
+Generates league tables and HTML reports from processed data
 
 utils.py
 ## Shared utilities:
@@ -99,12 +109,11 @@ utils.py
 
 - save_csv(): Saves lists of data to .csv files
 
-- Additional helper functions (e.g. SQLite support)
+- Additional helper functions
 
 📌 Notes
-- Default league ID is 70113. You can change this in main.py and league.py.
 
 - All output data is saved locally inside the Data/ folder.
-
 - Gameweek data handling (from event/{gameweek}/live) is available via get_player_gw_data(gameweek) in utils.py.
+- The dashboard is deployed using Streamlit, with full-page layout and wide 2x2 visualizations.
 
